@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Aperture.MainPage">
+    <ContentPage.Resources>
+        <Style TargetType="BoxView">
+            <Setter Property="VerticalOptions"
+                    Value="Center"></Setter>
+            <Setter Property="HorizontalOptions"
+                    Value="Center"></Setter>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Frame x:Name="ApertureFrame"
+               HasShadow="True"
+               BackgroundColor="DeepPink"
+               Margin="0"
+               Padding="0"
+               WidthRequest="300"
+               HeightRequest="300"
+               CornerRadius="150"
+               IsClippedToBounds="True"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <Grid IsClippedToBounds="True"
+                  x:Name="BladeGrid">
+
+                <d:BoxView BackgroundColor="Gold"
+                           HeightRequest="150"
+                           WidthRequest="150"
+                           TranslationX="-75"
+                           TranslationY="-75"
+                           AnchorX="1"
+                           AnchorY="0"
+                           Rotation="45"></d:BoxView>
+            </Grid>
+        </Frame>
+
+        <StackLayout Grid.Row="1">
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="{Binding Source={x:Reference ApertureOpeningValue}, Path=Value}"></Label>
+            <Slider x:Name="ApertureOpeningValue"
+                    Margin="10"
+                    Value="45.0"
+                    Minimum="0.0"
+                    Maximum="90.0"
+                    ValueChanged="Slider_OnValueChanged"></Slider>
+        </StackLayout>
+        
+    </Grid>
+</ContentPage>

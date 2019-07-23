@@ -1,0 +1,9 @@
+/.vs/*
+/Aperture/Aperture.Android/bin/*
+/Aperture/Aperture.Android/obj/*
+/Aperture/Aperture.iOS/bin/*
+/Aperture/Aperture.iOS/obj/*
+/Aperture/Aperture/obj/*
+/Aperture/Aperture/bin/*
+/Aperture/Aperture.UWP/bin/*
+/Aperture/Aperture.UWP/obj/*
