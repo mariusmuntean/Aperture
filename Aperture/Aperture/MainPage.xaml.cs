@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Aperture.Pages;
+using System;
+using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace Aperture
@@ -11,6 +13,16 @@ namespace Aperture
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private async void SimpleClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Simple());
+        }
+
+        private async void CoolClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Cool());
         }
     }
 }

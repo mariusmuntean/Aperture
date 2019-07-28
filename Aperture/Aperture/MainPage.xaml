@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -8,44 +9,63 @@
              ios:Application.HandleControlUpdatesOnMainThread="true"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
-             x:Class="Aperture.MainPage">
+             x:Class="Aperture.MainPage"
+             BackgroundColor="#FF666666"
+             NavigationPage.BarBackgroundColor="#FF666666"
+             NavigationPage.HasNavigationBar="True"
+             >
 
     <ContentPage.Resources>
         <OnPlatform x:TypeArguments="ImageSource"
-                    x:Key="img">
+                    x:Key="teaser">
             <On Platform="Android"
-                Value="xamarin"></On>
+                Value="aperture_teaser" />
             <On Platform="iOS"
-                Value="xamarin.jpg"></On>
+                Value="aperture_teaser.png" />
             <On Platform="UWP"
-                Value="Assets/xamarin.jpg"></On>
+                Value="Assets/aperture_teaser.png" />
         </OnPlatform>
     </ContentPage.Resources>
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <apertureView:ApertureView x:Name="Aperture"
-                                   ApertureColor="DodgerBlue">
-            <apertureView:ApertureView.ContentView>
-                <Image Source="{StaticResource img}"
-                       Aspect="AspectFill"></Image>
-            </apertureView:ApertureView.ContentView>
-        </apertureView:ApertureView>
+        <Image Grid.Row="0"
+               Source="{StaticResource teaser}"
+               Aspect="AspectFit"
+               Margin="10"
+               HorizontalOptions="Center"
+               HeightRequest="120" />
 
-        <StackLayout Grid.Row="1">
-            <Label HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   Text="{Binding Source={x:Reference BladeSizeValue}, Path=Value}"></Label>
-            <Slider x:Name="BladeSizeValue"
-                    Margin="10"
-                    Maximum="1.0"
-                    Minimum="0.0"
-                    Value="{Binding Source={x:Reference Aperture}, Path=ApertureOpening, Mode=TwoWay}"
-                    Visual="Material" />
+        <StackLayout Grid.Row="1"
+                     Orientation="Vertical"
+                     Spacing="10">
+            <Label Text="Aperture View"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   FontSize="52" />
+            <Label Text="Shows or hides a content view or the background through an aperture"
+                   FontSize="Large"
+                   TextColor="LightGray"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center" />
         </StackLayout>
+
+        <Button Text="Simple"
+                TextColor="White"
+                BackgroundColor="DarkGray"
+                Grid.Row="2"
+                Clicked="SimpleClicked" />
+        <Button Text="Cool"
+                TextColor="White"
+                BackgroundColor="DarkGray"
+                Grid.Row="3"
+                Clicked="CoolClicked" />
     </Grid>
 </ContentPage>

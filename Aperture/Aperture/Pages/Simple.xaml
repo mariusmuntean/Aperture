@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:apertureView="clr-namespace:ApertureView;assembly=ApertureView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Application.HandleControlUpdatesOnMainThread="true"
+             ios:Page.UseSafeArea="True"
+             mc:Ignorable="d"
+             x:Class="Aperture.Pages.Simple">
+
+    <ContentPage.Resources>
+        <OnPlatform x:TypeArguments="ImageSource"
+                    x:Key="img">
+            <On Platform="Android"
+                Value="xamarin"></On>
+            <On Platform="iOS"
+                Value="xamarin.jpg"></On>
+            <On Platform="UWP"
+                Value="Assets/xamarin.jpg"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <apertureView:ApertureView x:Name="Aperture"
+                                   ApertureColor="DodgerBlue">
+            <apertureView:ApertureView.ContentView>
+                <Image Source="{StaticResource img}"
+                       Aspect="AspectFill"></Image>
+            </apertureView:ApertureView.ContentView>
+        </apertureView:ApertureView>
+
+        <StackLayout Grid.Row="1">
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="{Binding Source={x:Reference BladeSizeValue}, Path=Value}"></Label>
+            <Slider x:Name="BladeSizeValue"
+                    Margin="10"
+                    Maximum="1.0"
+                    Minimum="0.0"
+                    Value="{Binding Source={x:Reference Aperture}, Path=ApertureOpening, Mode=TwoWay}"
+                    Visual="Material" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
