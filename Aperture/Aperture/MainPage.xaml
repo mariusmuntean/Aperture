@@ -4,6 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:apertureView="clr-namespace:ApertureView;assembly=ApertureView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Application.HandleControlUpdatesOnMainThread="true"
+             ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
              x:Class="Aperture.MainPage">
 
@@ -26,9 +29,10 @@
         </Grid.RowDefinitions>
 
         <apertureView:ApertureView x:Name="Aperture"
-                                   ApertureColor="#FFFFD700">
+                                   ApertureColor="DodgerBlue">
             <apertureView:ApertureView.ContentView>
-                <Image Source="{StaticResource img}" Aspect="AspectFill"></Image>
+                <Image Source="{StaticResource img}"
+                       Aspect="AspectFill"></Image>
             </apertureView:ApertureView.ContentView>
         </apertureView:ApertureView>
 

@@ -54,6 +54,34 @@ namespace ApertureView
                 Constraint.RelativeToParent(parent => Math.Min(parent.Width, parent.Height)),
                 Constraint.RelativeToParent(parent => Math.Min(parent.Width, parent.Height))
                 );
+
+            var pinchGestureRecognizer = new PinchGestureRecognizer();
+            pinchGestureRecognizer.PinchUpdated += OnPinch;
+            _apertureFrame.GestureRecognizers.Add(pinchGestureRecognizer);
+        }
+
+        private void OnPinch(object sender, PinchGestureUpdatedEventArgs e)
+        {
+            switch (e.Status)
+            {
+                case GestureStatus.Started:
+                    break;
+
+                case GestureStatus.Running:
+                    var scaleDelta = e.Scale - 1.0;
+                    var newApertureOpening = ApertureOpening + scaleDelta;
+                    ApertureOpening = scaleDelta > 0.0 ? Math.Min(newApertureOpening, 1.0) : Math.Max(newApertureOpening, 0.0);
+                    break;
+
+                case GestureStatus.Completed:
+                    break;
+
+                case GestureStatus.Canceled:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public static readonly BindableProperty ApertureOpeningProperty = BindableProperty.Create(
@@ -68,7 +96,7 @@ namespace ApertureView
         {
             if (bindable is ApertureView apertureView && newvalue is double)
             {
-                apertureView.PositionBlades(apertureView._apertureFrame.Width, apertureView._apertureFrame.Height);
+                apertureView.Redraw();
             }
         }
 
@@ -102,17 +130,7 @@ namespace ApertureView
 
                 if (newvalue is View newContentView)
                 {
-                    apertureView._apertureFrameContentGrid.Children.Insert(0, newContentView);
-                    //apertureView._apertureFrameContentGrid.Children.Insert(0, new Frame
-                    //{
-                    //    WidthRequest = 22,
-                    //    HeightRequest = 22,
-                    //    BackgroundColor = Color.Aqua,
-                    //    VerticalOptions = LayoutOptions.Center,
-                    //    HorizontalOptions = LayoutOptions.Center
-                    //});
-                    //apertureView.InvalidateLayout();
-                }
+                    apertureView._apertureFrameContentGrid.Children.Insert(0, newContentView); }
             }
         }
 
@@ -128,6 +146,8 @@ namespace ApertureView
             _apertureFrame.CornerRadius = (float)(_apertureFrame.Width / 2.0);
 
             PositionBlades(_apertureFrame.Width, _apertureFrame.Height);
+
+            //_apertureFrameBladeGrid.Rotation = (1.0 - ApertureOpening) * 60.0;
         }
 
         private void PositionBlades(double width, double height)
