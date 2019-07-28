@@ -2,21 +2,21 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Aperture
+namespace ApertureView
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public class ApertureView : RelativeLayout
     {
         private const int BladeCount = 6;
 
-        private Grid _apertureFrameContentGrid;
-        private Frame _apertureFrame;
+        private readonly Frame _apertureFrame;
+        private readonly Grid _apertureFrameContentGrid;
+        private readonly Grid _apertureFrameBladeGrid;
 
         public ApertureView()
         {
             _apertureFrame = new Frame
             {
-                BackgroundColor = Color.Chartreuse,
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
                 IsClippedToBounds = true
@@ -29,9 +29,15 @@ namespace Aperture
             };
             _apertureFrame.Content = _apertureFrameContentGrid;
 
-            for (int i = 0; i < BladeCount; i++)
+            _apertureFrameBladeGrid = new Grid
             {
-                _apertureFrameContentGrid.Children.Add(new BoxView { BackgroundColor = ApertureColor, Margin = 0 });
+                BackgroundColor = Color.Transparent
+            };
+            _apertureFrameContentGrid.Children.Add(_apertureFrameBladeGrid);
+
+            for (var i = 0; i < BladeCount; i++)
+            {
+                _apertureFrameBladeGrid.Children.Add(new BoxView { BackgroundColor = ApertureColor, Margin = 0 });
             }
 
             Children.Add(_apertureFrame,
@@ -48,12 +54,6 @@ namespace Aperture
                 Constraint.RelativeToParent(parent => Math.Min(parent.Width, parent.Height)),
                 Constraint.RelativeToParent(parent => Math.Min(parent.Width, parent.Height))
                 );
-        }
-
-        protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
-        {
-            var min = Math.Min(widthConstraint, heightConstraint);
-            return new SizeRequest(new Size(min, min));
         }
 
         public static readonly BindableProperty ApertureOpeningProperty = BindableProperty.Create(
@@ -78,27 +78,52 @@ namespace Aperture
             nameof(ApertureColor),
             typeof(Color),
             typeof(ApertureView),
-            Color.LightGray
+            Color.Gold
         );
 
         public Color ApertureColor { get => (Color)GetValue(ApertureColorProperty); set => SetValue(ApertureColorProperty, value); }
 
-        private double Bound(double value, double minValue, double maxValue)
+        public static readonly BindableProperty ContentViewProperty = BindableProperty.Create(
+            nameof(ContentView),
+            typeof(View),
+            typeof(ApertureView),
+            null,
+            propertyChanged: OnContentViewChanged
+        );
+
+        private static void OnContentViewChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
-            if (value < minValue)
+            if (bindable is ApertureView apertureView)
             {
-                return minValue;
-            }
+                if (oldvalue is View oldChildView && apertureView._apertureFrameContentGrid.Children.Contains(oldChildView))
+                {
+                    apertureView._apertureFrameContentGrid.Children.Remove(oldChildView);
+                }
 
-            if (value > maxValue)
-            {
-                return maxValue;
+                if (newvalue is View newContentView)
+                {
+                    apertureView._apertureFrameContentGrid.Children.Insert(0, newContentView);
+                    //apertureView._apertureFrameContentGrid.Children.Insert(0, new Frame
+                    //{
+                    //    WidthRequest = 22,
+                    //    HeightRequest = 22,
+                    //    BackgroundColor = Color.Aqua,
+                    //    VerticalOptions = LayoutOptions.Center,
+                    //    HorizontalOptions = LayoutOptions.Center
+                    //});
+                    //apertureView.InvalidateLayout();
+                }
             }
-
-            return value;
         }
 
+        public View ContentView { get => (View)GetValue(ContentViewProperty); set => SetValue(ContentViewProperty, value); }
+
         private void ApertureFrameOnSizeChanged(object sender, EventArgs e)
+        {
+            Redraw();
+        }
+
+        private void Redraw()
         {
             _apertureFrame.CornerRadius = (float)(_apertureFrame.Width / 2.0);
 
@@ -120,10 +145,41 @@ namespace Aperture
                 var currentBladeX = r * Math.Cos(currentBladeOffset * degreesToRadiansFactor);
                 var currentBladeY = r * Math.Sin(currentBladeOffset * degreesToRadiansFactor);
 
-                PositionBlade(_apertureFrameContentGrid.Children[i] as BoxView, currentBladeX, currentBladeY, currentBladeOffset);
+                PositionBlade(_apertureFrameBladeGrid.Children[i] as BoxView, currentBladeX, currentBladeY, currentBladeOffset);
 
                 currentBladeOffset += angularBladeOffset;
             }
+        }
+
+        private void PositionBlade(BoxView bladeGridChild, double currentBladeX, double currentBladeY, double currentBladeOffset)
+        {
+            if (bladeGridChild == null)
+            {
+                return;
+            }
+
+            bladeGridChild.BackgroundColor = ApertureColor;
+            bladeGridChild.WidthRequest = _apertureFrame.Width; //TBD
+            bladeGridChild.HeightRequest = _apertureFrame.Width; //TBD
+            bladeGridChild.TranslationX = currentBladeX;
+            bladeGridChild.TranslationY = currentBladeY;
+
+            bladeGridChild.Rotation = currentBladeOffset;
+        }
+
+        private double Bound(double value, double minValue, double maxValue)
+        {
+            if (value < minValue)
+            {
+                return minValue;
+            }
+
+            if (value > maxValue)
+            {
+                return maxValue;
+            }
+
+            return value;
         }
 
         private double Remap(double value, double rangeMinimum, double rangeMaximum)
@@ -131,17 +187,6 @@ namespace Aperture
             var range = rangeMaximum - rangeMinimum;
 
             return rangeMinimum + (range * value);
-        }
-
-        private void PositionBlade(BoxView bladeGridChild, double currentBladeX, double currentBladeY, double currentBladeOffset)
-        {
-            bladeGridChild.BackgroundColor = Color.Gold;
-            bladeGridChild.WidthRequest = _apertureFrame.Width; //TBD
-            bladeGridChild.HeightRequest = _apertureFrame.Width; //TBD
-            bladeGridChild.TranslationX = currentBladeX;
-            bladeGridChild.TranslationY = currentBladeY;
-
-            bladeGridChild.Rotation = currentBladeOffset;
         }
     }
 }

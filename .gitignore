@@ -7,3 +7,5 @@
 /Aperture/Aperture/bin/*
 /Aperture/Aperture.UWP/bin/*
 /Aperture/Aperture.UWP/obj/*
+/lib/ApertureView/obj/*
+/lib/ApertureView/bin/*
