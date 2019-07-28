@@ -3,13 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:apertureView="clr-namespace:ApertureView;assembly=ApertureView"
+             ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
              x:Class="Aperture.Pages.Cool">
-    <ContentPage.Content>
+
+    <ContentPage.Resources>
+        <OnPlatform x:TypeArguments="ImageSource"
+                    x:Key="cool">
+            <On Platform="Android"
+                Value="cool"></On>
+            <On Platform="iOS"
+                Value="cool.jpg"></On>
+            <On Platform="UWP"
+                Value="Assets/cool.jpg"></On>
+        </OnPlatform>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Image Source="{StaticResource cool}"
+               WidthRequest="300"
+               Aspect="AspectFill" />
+
+        <apertureView:ApertureView x:Name="Aperture"
+                                   ApertureColor="Black">
+        </apertureView:ApertureView>
+
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Text="{Binding Source={x:Reference BladeSizeValue}, Path=Value}"></Label>
+            <Slider x:Name="BladeSizeValue"
+                    Margin="10"
+                    Maximum="1.0"
+                    Minimum="0.0"
+                    Value="{Binding Source={x:Reference Aperture}, Path=ApertureOpening, Mode=TwoWay}"
+                    Visual="Material" />
         </StackLayout>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>

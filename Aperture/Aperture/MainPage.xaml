@@ -6,14 +6,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:apertureView="clr-namespace:ApertureView;assembly=ApertureView"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Application.HandleControlUpdatesOnMainThread="true"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
              x:Class="Aperture.MainPage"
              BackgroundColor="#FF666666"
-             NavigationPage.BarBackgroundColor="#FF666666"
-             NavigationPage.HasNavigationBar="True"
-             >
+             NavigationPage.BarBackgroundColor="#FF666666">
 
     <ContentPage.Resources>
         <OnPlatform x:TypeArguments="ImageSource"

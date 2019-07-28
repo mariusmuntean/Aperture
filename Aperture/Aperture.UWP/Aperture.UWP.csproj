@@ -103,6 +103,21 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aperture_teaser.altform-unplated_targetsize-16.png" />
+    <Content Include="aperture_teaser.altform-unplated_targetsize-24.png" />
+    <Content Include="aperture_teaser.altform-unplated_targetsize-256.png" />
+    <Content Include="aperture_teaser.altform-unplated_targetsize-32.png" />
+    <Content Include="aperture_teaser.altform-unplated_targetsize-48.png" />
+    <Content Include="aperture_teaser.scale-100.png" />
+    <Content Include="aperture_teaser.scale-125.png" />
+    <Content Include="aperture_teaser.scale-150.png" />
+    <Content Include="aperture_teaser.scale-200.png" />
+    <Content Include="aperture_teaser.scale-400.png" />
+    <Content Include="aperture_teaser.targetsize-16.png" />
+    <Content Include="aperture_teaser.targetsize-24.png" />
+    <Content Include="aperture_teaser.targetsize-256.png" />
+    <Content Include="aperture_teaser.targetsize-32.png" />
+    <Content Include="aperture_teaser.targetsize-48.png" />
     <Content Include="Assets\aperture_teaser.png" />
     <Content Include="Assets\cool.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -112,6 +127,8 @@
     <Content Include="Assets\SmallTile.scale-200.png" />
     <Content Include="Assets\SmallTile.scale-400.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\Square150x150Logo.scale-100.png" />

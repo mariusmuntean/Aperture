@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:apertureView="clr-namespace:ApertureView;assembly=ApertureView"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Application.HandleControlUpdatesOnMainThread="true"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
              x:Class="Aperture.Pages.Simple">
@@ -24,11 +23,20 @@
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <Label Grid.Row="0"
+               Text="Drag the slider or better yet, do a pinch-to-zoom on the aperture view"
+               FontSize="Large"
+               TextColor="LightGray"
+               HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center" />
+
         <apertureView:ApertureView x:Name="Aperture"
+                                   Grid.Row="1"
                                    ApertureColor="DodgerBlue">
             <apertureView:ApertureView.ContentView>
                 <Image Source="{StaticResource img}"
@@ -36,7 +44,7 @@
             </apertureView:ApertureView.ContentView>
         </apertureView:ApertureView>
 
-        <StackLayout Grid.Row="1">
+        <StackLayout Grid.Row="2">
             <Label HorizontalOptions="Center"
                    VerticalOptions="Center"
                    Text="{Binding Source={x:Reference BladeSizeValue}, Path=Value}"></Label>
