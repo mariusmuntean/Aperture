@@ -11,7 +11,7 @@
 
     <ContentPage.Resources>
         <OnPlatform x:TypeArguments="ImageSource"
-                    x:Key="img">
+                    x:Key="xamarin">
             <On Platform="Android"
                 Value="xamarin"></On>
             <On Platform="iOS"
@@ -39,7 +39,7 @@
                                    Grid.Row="1"
                                    ApertureColor="DodgerBlue">
             <apertureView:ApertureView.ContentView>
-                <Image Source="{StaticResource img}"
+                <Image Source="{StaticResource xamarin}"
                        Aspect="AspectFill"></Image>
             </apertureView:ApertureView.ContentView>
         </apertureView:ApertureView>

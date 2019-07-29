@@ -110,6 +110,10 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\ApertureView\ApertureView.csproj">
+      <Project>{9c87e5fc-fc39-4fd7-bb9f-fd594bb06f43}</Project>
+      <Name>ApertureView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Aperture\Aperture.csproj">
       <Project>{33C1CE15-B04D-45CB-9690-E387E97E9B95}</Project>
       <Name>Aperture</Name>

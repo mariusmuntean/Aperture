@@ -19,7 +19,8 @@ namespace ApertureView
             {
                 Padding = new Thickness(0),
                 Margin = new Thickness(0),
-                IsClippedToBounds = true
+                IsClippedToBounds = true,
+                BackgroundColor = Color.Transparent
             };
             _apertureFrame.SizeChanged += ApertureFrameOnSizeChanged;
 
@@ -130,7 +131,8 @@ namespace ApertureView
 
                 if (newvalue is View newContentView)
                 {
-                    apertureView._apertureFrameContentGrid.Children.Insert(0, newContentView); }
+                    apertureView._apertureFrameContentGrid.Children.Insert(0, newContentView);
+                }
             }
         }
 
@@ -143,7 +145,8 @@ namespace ApertureView
 
         private void Redraw()
         {
-            _apertureFrame.CornerRadius = (float)(_apertureFrame.Width / 2.0);
+            var halfApertureFrameWidth = (float)(_apertureFrame.Width / 2.0);
+            _apertureFrame.CornerRadius = halfApertureFrameWidth > 0.0 ? halfApertureFrameWidth : _apertureFrame.CornerRadius;
 
             PositionBlades(_apertureFrame.Width, _apertureFrame.Height);
 
