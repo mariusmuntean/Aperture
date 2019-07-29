@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageIconUrl>https://github.com/mariusmuntean/Aperture/blob/master/media/aperture_teaser.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/mariusmuntean/Aperture/master/media/aperture_teaser.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/mariusmuntean/Aperture</PackageProjectUrl>
     <Copyright>Marius Muntean 2019</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -10,7 +10,7 @@
     <PackageTags>Xamarin.Forms CusomControl Aperture CrossPlatform</PackageTags>
     <Description>A Xamarin.Forms custom control that shows either the background or a child view using an aperture-like mask.
 
-It isimplemented exclusively in Xmarin.Forms and hence should run on all platforms where Xamarin.Forms is supported. Also, it is tiny. 
+It is implemented exclusively in Xmarin.Forms and hence should run on all platforms where Xamarin.Forms is supported. Also, it is tiny. 
 Would probably look great on watches :D</Description>
     <PackageReleaseNotes>Fist release. Have a look at the sample project to get a feeling of what is possible.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
