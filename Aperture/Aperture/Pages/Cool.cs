@@ -8,8 +8,8 @@ namespace Aperture.Pages
     [DesignTimeVisible(true)]
     public class Cool : ContentPage
     {
-        private ApertureView.ApertureView _apertureView;
-        private Image _xamarinImage;
+        private readonly ApertureView.ApertureView _apertureView;
+        private readonly Image _xamarinImage;
 
         public Cool()
         {
@@ -30,6 +30,7 @@ namespace Aperture.Pages
                 Constraint.RelativeToParent(parent => parent.Height)
                 );
 
+            // Here's the interesting bit. have a look at the shutterButton's command
             _xamarinImage = new Image
             {
                 Aspect = Aspect.AspectFill,
@@ -87,13 +88,19 @@ namespace Aperture.Pages
 
         private void AnimateAperture()
         {
+            // animate the aperture from 0 (closed) to 1 (open)
             var apertureOpeningAnimation = new Animation(d => _apertureView.ApertureOpening = d, 0.0, 1.0, easing: Easing.CubicIn);
+
+            // animate the aperture from 1 (open) to 0 (closed)
             var apertureClosingAnimation = new Animation(d => _apertureView.ApertureOpening = d, 1.0, 0.0, easing: Easing.CubicOut);
 
             var parentAnimation = new Animation();
+            // for the fist half of the parent animation duration run the opening animation
             parentAnimation.Add(0.0, 0.5, apertureOpeningAnimation);
+            // for the second half of the parent animation duration run the closing animation
             parentAnimation.Add(0.5, 1.0, apertureClosingAnimation);
 
+            // run the parent animation
             parentAnimation.Commit(this, "OpenCloseApertureAnimation", length: 300);
         }
 

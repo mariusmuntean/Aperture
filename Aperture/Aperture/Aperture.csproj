@@ -11,16 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\old.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Pages\old.xml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
   </ItemGroup>
@@ -30,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\Cool.xaml.cs">
+    <Compile Update="Pages\Cool.cs">
       <DependentUpon>Cool</DependentUpon>
     </Compile>
   </ItemGroup>
